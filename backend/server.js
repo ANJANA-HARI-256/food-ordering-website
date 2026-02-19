@@ -1,7 +1,7 @@
 const express = require("express");
 const mongoose = require("mongoose");
 require("dotenv").config();
-
+require('./config/db');
 const authRoutes = require("./routes/authRoutes"); // ✅ ADD THIS
 
 const app = express();
