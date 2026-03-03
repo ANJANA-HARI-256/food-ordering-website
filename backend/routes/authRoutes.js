@@ -1,87 +1,82 @@
 const express = require("express");
 const jwt = require("jsonwebtoken");
-const bcrypt = require("bcryptjs");
-const router = express.Router();
-const adminMiddleware = require("../middleware/adminMiddleware");
-
 const User = require("../models/User");
-const authMiddleware = require("../middleware/authMiddleware");
-router.get("/user", authMiddleware, (req, res) => {
-  res.json({ message: "Welcome User", role: req.user.role });
-});
+const { protect } = require("../middleware/authMiddleware");
 
-// ================== SIGNUP ==================
-router.post("/signup", async (req, res) => {
+const router = express.Router();
+
+// Generate JWT Token
+const generateToken = (id) => {
+  return jwt.sign({ id }, process.env.JWT_SECRET, {
+    expiresIn: "30d",
+  });
+};
+
+// Register User
+router.post("/register", async (req, res) => {
   try {
-    const { name, email, password, role } = req.body;
-
-    if (!name || !email || !password) {
-      return res.status(400).json({ msg: "All fields required" });
-    }
+    const { name, email, password, phone, address } = req.body;
 
     const userExists = await User.findOne({ email });
     if (userExists) {
-      return res.status(400).json({ msg: "User already exists" });
+      return res.status(400).json({ message: "User already exists" });
     }
 
-    // hash password
-    const salt = await bcrypt.genSalt(10);
-    const hashedPassword = await bcrypt.hash(password, salt);
-
-    const newUser = new User({
+    const user = await User.create({
       name,
       email,
-      password: hashedPassword,
-      role
+      password,
+      phone,
+      address,
     });
 
-    await newUser.save();
-
-    res.status(201).json({ message: "Signup successful" });
+    if (user) {
+      res.status(201).json({
+        _id: user._id,
+        name: user.name,
+        email: user.email,
+        phone: user.phone,
+        role: user.role,
+        token: generateToken(user._id),
+      });
+    }
   } catch (error) {
-    console.error(error);
-    res.status(500).json({ error: error.message });
+    res.status(500).json({ message: error.message });
   }
 });
 
-// ================== LOGIN ==================
+// Login User
 router.post("/login", async (req, res) => {
   try {
     const { email, password } = req.body;
 
     const user = await User.findOne({ email });
-    if (!user) {
-      return res.status(400).json({ msg: "Invalid credentials" });
+
+    if (user && (await user.matchPassword(password))) {
+      res.json({
+        _id: user._id,
+        name: user.name,
+        email: user.email,
+        phone: user.phone,
+        role: user.role,
+        token: generateToken(user._id),
+      });
+    } else {
+      res.status(401).json({ message: "Invalid email or password" });
     }
-
-    const isMatch = await bcrypt.compare(password, user.password);
-    if (!isMatch) {
-      return res.status(400).json({ msg: "Invalid credentials" });
-    }
-
-    const token = jwt.sign(
-      { id: user._id, role: user.role },
-      process.env.JWT_SECRET,
-      { expiresIn: "1d" }
-    );
-
-    res.json({ token });
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    res.status(500).json({ message: error.message });
   }
 });
 
-// ================== PROFILE (Protected) ==================
-router.get("/profile", authMiddleware, async (req, res) => {
+// Get Profile
+router.get("/profile", protect, async (req, res) => {
   try {
-    const user = await User.findById(req.user.id).select("-password");
+    const user = await User.findById(req.user._id).select("-password");
     res.json(user);
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    res.status(500).json({ message: error.message });
   }
 });
-// Check admin
-router.get("/admin", authMiddleware, adminMiddleware, (req, res) => {
-  res.json({ message: "Welcome Admin" });
-});
+
 module.exports = router;
