@@ -315,3 +315,196 @@ td {
     overflow-x: auto;
   }
 }
+/* Admin.css - Add these coupon management styles */
+
+/* Coupons Management */
+.coupons-management {
+  background: white;
+  padding: 25px;
+  border-radius: 10px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+.coupons-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+.coupons-table th {
+  text-align: left;
+  padding: 12px;
+  background-color: #f8f9fa;
+  color: #2c3e50;
+  font-weight: 600;
+  border-bottom: 2px solid #dee2e6;
+}
+
+.coupons-table td {
+  padding: 12px;
+  border-bottom: 1px solid #dee2e6;
+}
+
+.coupons-table tr:hover {
+  background-color: #f8f9fa;
+}
+
+.coupons-table .status.available {
+  background-color: #d4edda;
+  color: #155724;
+}
+
+.coupons-table .status.unavailable {
+  background-color: #f8d7da;
+  color: #721c24;
+}
+
+/* Coupon specific styles */
+.coupon-code-badge {
+  background-color: #3498db;
+  color: white;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-weight: bold;
+  font-size: 12px;
+}
+
+/* Discount display */
+.discount-percentage {
+  color: #27ae60;
+  font-weight: 600;
+}
+
+.discount-fixed {
+  color: #e67e22;
+  font-weight: 600;
+}
+
+/* Usage count */
+.usage-count {
+  font-weight: 600;
+}
+
+.usage-limit {
+  color: #7f8c8d;
+  font-size: 12px;
+}
+
+/* Coupon form specific */
+.coupon-form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 15px;
+  margin-bottom: 15px;
+}
+
+/* Date inputs */
+input[type="date"] {
+  font-family: inherit;
+}
+
+/* Checkbox styling */
+.checkbox-group {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.checkbox-group input[type="checkbox"] {
+  width: auto;
+  margin-right: 5px;
+}
+
+/* Stats card for coupons */
+.stat-card.coupon-stats {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+}
+
+.stat-card.coupon-stats h3,
+.stat-card.coupon-stats p {
+  color: white;
+}
+
+/* Tooltip for coupon info */
+.coupon-tooltip {
+  position: relative;
+  display: inline-block;
+  cursor: help;
+}
+
+.coupon-tooltip .tooltip-text {
+  visibility: hidden;
+  width: 200px;
+  background-color: #2c3e50;
+  color: white;
+  text-align: center;
+  padding: 5px;
+  border-radius: 4px;
+  position: absolute;
+  z-index: 1;
+  bottom: 125%;
+  left: 50%;
+  margin-left: -100px;
+  opacity: 0;
+  transition: opacity 0.3s;
+  font-size: 12px;
+}
+
+.coupon-tooltip:hover .tooltip-text {
+  visibility: visible;
+  opacity: 1;
+}
+
+/* Expiry warning */
+.expiry-warning {
+  color: #e67e22;
+  font-weight: 600;
+  font-size: 12px;
+}
+
+.expiry-expired {
+  color: #e74c3c;
+  font-weight: 600;
+  font-size: 12px;
+}
+
+/* Active/Inactive toggle in table */
+.status-toggle {
+  padding: 4px 8px;
+  border-radius: 12px;
+  font-size: 11px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.status-toggle.active {
+  background-color: #d4edda;
+  color: #155724;
+}
+
+.status-toggle.inactive {
+  background-color: #f8d7da;
+  color: #721c24;
+}
+
+/* Modal specific for coupon */
+.modal-content.coupon-modal {
+  max-width: 600px;
+}
+
+/* Responsive adjustments for coupon table */
+@media (max-width: 768px) {
+  .coupons-table {
+    display: block;
+    overflow-x: auto;
+    white-space: nowrap;
+  }
+  
+  .coupon-form-row {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+}

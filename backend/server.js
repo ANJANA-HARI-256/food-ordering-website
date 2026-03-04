@@ -8,7 +8,7 @@ const authRoutes = require("./routes/authRoutes");
 const foodRoutes = require("./routes/foodRoutes");
 const orderRoutes = require("./routes/orderRoutes");
 const adminRoutes = require("./routes/adminRoutes"); // Add this
-
+const couponRoutes = require('./routes/couponRoutes');
 const app = express();
 
 // Middleware
@@ -28,7 +28,7 @@ app.use("/api/auth", authRoutes);
 app.use("/api/foods", foodRoutes);
 app.use("/api/orders", orderRoutes);
 app.use("/api/admin", adminRoutes); // Add this
-
+app.use('/api/coupons', couponRoutes);
 // Test route
 app.get("/", (req, res) => {
   res.send("Food Ordering Backend is Running");
@@ -37,5 +37,5 @@ app.get("/", (req, res) => {
 const PORT = process.env.PORT || 5000;
 
 app.listen(PORT, () => {
-  console.log(`🚀 Server running on port ${PORT}`);
+  console.log(` Server running on port ${PORT}`);
 });

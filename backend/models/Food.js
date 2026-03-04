@@ -37,6 +37,14 @@ const foodSchema = new mongoose.Schema(
       type: Number,
       default: 0,
     },
+     customizationOptions: {
+      type: [String], // e.g., ["Extra Cheese", "No Onions", "Spicy Level"]
+      default: []
+    },
+    allowSpecialInstructions: {
+      type: Boolean,
+      default: true
+    }
   },
   {
     timestamps: true,

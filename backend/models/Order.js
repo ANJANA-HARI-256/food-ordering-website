@@ -22,6 +22,23 @@ const orderSchema = new mongoose.Schema(
           type: Number,
           required: true,
         },
+        // Add these new fields for customization
+        specialInstructions: {
+          type: String,
+          default: ''
+        },
+        customizations: [{
+          name: String,
+          price: Number,
+          _id: false
+        }],
+        basePrice: {
+          type: Number  // Original price before customizations
+        },
+        customizationCost: {
+          type: Number,
+          default: 0
+        },
         _id: false
       },
     ],
@@ -37,6 +54,15 @@ const orderSchema = new mongoose.Schema(
       type: String,
       default: 'pending',
       enum: ['pending', 'confirmed', 'preparing', 'ready', 'delivered', 'cancelled']
+    },
+    couponApplied: {
+      code: String,
+      discountAmount: Number,
+      discountType: String,
+      _id: false
+    },
+    originalPrice: {
+      type: Number  // Price before discount
     },
     paymentStatus: {
       type: String,

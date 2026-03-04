@@ -47,6 +47,18 @@ export const cancelOrder = (id) => api.put(`/admin/orders/${id}/cancel`);
 // Get all users (admin only)
 export const getUsers = () => api.get('/admin/users');
 // Update order status (admin only)
+// services/api.js - Add these functions
+
+// Coupon APIs
+export const getActiveCoupons = () => api.get('/coupons/active');
+export const validateCoupon = (data) => api.post('/coupons/validate', data);
+
+// Admin Coupon APIs
+export const getAllCoupons = () => api.get('/coupons');
+export const getCouponById = (id) => api.get(`/coupons/${id}`);
+export const createCoupon = (couponData) => api.post('/coupons', couponData);
+export const updateCoupon = (id, couponData) => api.put(`/coupons/${id}`, couponData);
+export const deleteCoupon = (id) => api.delete(`/coupons/${id}`);
 // Restaurant APIs
 export const getRestaurants = () => api.get('/restaurants');
 export const getRestaurantById = (id) => api.get(`/restaurants/${id}`);
