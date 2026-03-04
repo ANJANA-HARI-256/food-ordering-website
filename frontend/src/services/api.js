@@ -44,9 +44,15 @@ export const getAllOrders = () => api.get('/admin/orders/all');
 export const updateOrderStatus = (id, status) => api.put(`/admin/orders/${id}/status`, { status });
 export const cancelOrder = (id) => api.put(`/admin/orders/${id}/cancel`);
 // services/api.js - Add this function
-
+// Get all users (admin only)
+export const getUsers = () => api.get('/admin/users');
 // Update order status (admin only)
-
+// Restaurant APIs
+export const getRestaurants = () => api.get('/restaurants');
+export const getRestaurantById = (id) => api.get(`/restaurants/${id}`);
+export const createRestaurant = (restaurantData) => api.post('/restaurants', restaurantData);
+export const updateRestaurant = (id, restaurantData) => api.put(`/restaurants/${id}`, restaurantData);
+export const deleteRestaurant = (id) => api.delete(`/restaurants/${id}`);
 // ✅ Add this alias for backward compatibility
 export const getOrders = getMyOrders;
 

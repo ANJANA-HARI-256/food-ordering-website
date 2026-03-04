@@ -2,6 +2,7 @@
 const express = require('express');
 const Order = require('../models/Order');
 const Food = require('../models/Food');
+const User = require('../models/User');
 const { protect } = require('../middleware/authMiddleware');
 const { admin } = require('../middleware/adminMiddleware');
 
@@ -12,6 +13,15 @@ router.get('/orders/all', protect, admin, async (req, res) => {
   try {
     const orders = await Order.find().populate('user', 'name email');
     res.json(orders);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+});
+// Get all users (admin only)
+router.get('/users', protect, admin, async (req, res) => {
+  try {
+    const users = await User.find().select('-password');
+    res.json(users);
   } catch (error) {
     res.status(500).json({ message: error.message });
   }

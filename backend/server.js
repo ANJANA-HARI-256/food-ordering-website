@@ -19,6 +19,11 @@ app.use(express.json());
 connectDB();
 
 // Routes
+// server.js - Add this line with other routes
+const restaurantRoutes = require('./routes/restaurantRoutes');
+
+// Add this with other app.use statements
+app.use('/api/restaurants', restaurantRoutes);
 app.use("/api/auth", authRoutes);
 app.use("/api/foods", foodRoutes);
 app.use("/api/orders", orderRoutes);
