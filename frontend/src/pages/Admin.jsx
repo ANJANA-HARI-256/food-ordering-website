@@ -465,7 +465,7 @@ const Admin = () => {
                   </tr>
                 </thead>
                 <tbody>
-                  {orders.slice(0, 5).map(order => (
+                  {orders.map(order => (
                     <tr key={order._id}>
                       <td>{order._id.substring(0, 8)}...</td>
                       <td>{order.user?.name || 'Unknown'}</td>
