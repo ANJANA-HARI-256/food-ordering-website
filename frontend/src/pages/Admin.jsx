@@ -340,31 +340,42 @@ const Admin = () => {
   };
 
   // Order Handlers
-  const updateOrderStatus = async (orderId, newStatus) => {
-    try {
-      const token = localStorage.getItem('token');
-      const response = await fetch(`http://localhost:5000/api/admin/orders/${orderId}/status`, {
-        method: 'PUT',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${token}`
-        },
-        body: JSON.stringify({ status: newStatus })
-      });
+  // const updateOrderStatus = async (orderId, newStatus) => {
+  //   try {
+  //     const token = localStorage.getItem('token');
+  //     const response = await fetch(`http://localhost:5000/api/admin/orders/${orderId}/status`, {
+  //       method: 'PUT',
+  //       headers: {
+  //         'Content-Type': 'application/json',
+  //         'Authorization': `Bearer ${token}`
+  //       },
+  //       body: JSON.stringify({ status: newStatus })
+  //     });
       
-      if (response.ok) {
-        alert(`Order status updated to ${newStatus} successfully!`);
-        fetchData();
-      } else {
-        const data = await response.json();
-        alert('Failed to update order: ' + (data.message || 'Unknown error'));
-      }
-    } catch (error) {
-      console.error('Error updating order:', error);
-      alert('Error updating order. Check console for details.');
-    }
-  };
-
+  //     if (response.ok) {
+  //       alert(`Order status updated to ${newStatus} successfully!`);
+  //       fetchData();
+  //     } else {
+  //       const data = await response.json();
+  //       alert('Failed to update order: ' + (data.message || 'Unknown error'));
+  //     }
+  //   } catch (error) {
+  //     console.error('Error updating order:', error);
+  //     alert('Error updating order. Check console for details.');
+  //   }
+  // };
+  // Order Handlers
+const updateOrderStatus = async (orderId, newStatus) => {
+  try {
+    // Use the imported API function instead of hardcoded fetch
+    await updateOrderStatus(orderId, newStatus);
+    alert(`Order status updated to ${newStatus} successfully!`);
+    fetchData();
+  } catch (error) {
+    console.error('Error updating order:', error);
+    alert('Failed to update order status. Please try again.');
+  }
+};
   const viewOrderDetails = (order) => {
     setSelectedOrder(order);
     setShowOrderModal(true);
