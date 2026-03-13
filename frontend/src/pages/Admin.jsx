@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { 
   getAllOrders, getFoods, createFood, updateFood, deleteFood,
   getRestaurants, createRestaurant, updateRestaurant, deleteRestaurant,
-  getUsers, getAllCoupons, createCoupon, updateCoupon, deleteCoupon
+  getUsers, getAllCoupons, createCoupon, updateCoupon, deleteCoupon,updateOrderStatus
 } from '../services/api';
 import './Admin.css';
 
