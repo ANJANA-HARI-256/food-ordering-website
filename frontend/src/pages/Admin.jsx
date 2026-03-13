@@ -365,7 +365,7 @@ const Admin = () => {
   //   }
   // };
   // Order Handlers
-const updateOrderStatus = async (orderId, newStatus) => {
+const handleStatusChange = async (orderId, newStatus) => {
   try {
     // Use the imported API function instead of hardcoded fetch
     await updateOrderStatus(orderId, newStatus);
@@ -576,7 +576,7 @@ const updateOrderStatus = async (orderId, newStatus) => {
                       <td>
                         <select 
                           value={order.orderStatus || 'pending'}
-                          onChange={(e) => updateOrderStatus(order._id, e.target.value)}
+                          onChange={(e) => handleStatusChange(order._id, e.target.value)}
                           className="status-select"
                           style={{
                             padding: '5px',
